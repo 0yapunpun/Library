@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Viga&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="aside">
+
+    <div class="aside_top">
+      <h3>Virtual Library</h3>
+      <p>Keep visual track of the books that you have read already </p>
+    </div>
+
+    <div class="aside_formulary">
+      <p>Book Name</p>
+      <input type="text" id="book_name" maxlength="50">
+
+      <p>Book Author</p>
+      <input type="text" id="book_author" maxlength="50">
+
+      <p>Date Read: <br><br>
+        <input type="date"  id="time_read" >
+      </p>
+
+      <br>
+      <button id="add_book" onclick="F_add_book()">Add</button>
+
+    <div class="personal_tag">Made by San 2021</div>
+    </div>
+  </div>
+
+  <div class="library_display" >
+
+    <div class="book_stand" id="library_displayId">
+    </div>
+    
+  </div>
+
+  <div class="clear_localStorage"><button onclick="clearStorage()">Clear Library</button></div>
+ 
+<script src="index.js"></script>
+
+</body>
+</html>

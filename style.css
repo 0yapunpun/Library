@@ -1,0 +1,254 @@
+:root{
+  /*Books*/
+  --clr1: #F64F08;
+  --clr2: #DBF643;
+  --clr3: #BA81E9;
+  --clr4: #25F529;
+
+  /*Body*/
+  --clr5: #FCDEC0;
+  --clr6: #FDD2BF;
+  --clr7: #492F10;
+  --clr8: #E98580;
+}
+
+
+body{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+
+}
+
+.aside{
+  max-width: 300px;
+  height: 100%;
+  padding: 10px;
+  background: var(--clr8);
+  display: flex;
+  flex-direction:column ;
+  color: black;
+  font-family: 'Viga', sans-serif;
+  font-size: 20px;
+}
+
+.aside_top{
+  margin-top: 30px;
+  text-align: center;
+}
+
+.aside_top h3{
+  font-size: 25px;
+}
+
+.aside_formulary{
+  margin-top: 50px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.aside_formulary p{
+  margin-bottom: 5px;
+}
+
+.aside_formulary input{
+  width: 250px;
+  background-color: var(--clr8);
+  border: none;
+  border-bottom: dotted 2px black;
+  padding-left: 5px;
+  height: 30px;
+}
+
+.aside_formulary input:focus {
+  outline: none;
+}
+
+.aside_formulary button{
+  margin-top: 30px;
+  border-radius: 5px;
+  border: solid 1px black;
+  width: 70px;
+  height: 30px;
+}
+
+.aside_formulary button:hover {
+  border: solid 1px gray;
+ }
+
+/*Styles Calendar*/
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute; left: 0; 
+}
+
+input::-webkit-datetime-edit { 
+   position: relative; left: 60%; 
+}
+
+/*Change background color when select on text*/
+::selection {
+  background: var(--clr6);
+}
+
+
+/*||||||||||||||||||||||||*/
+
+.library_display{
+  width: 100%;
+  height: 100%;
+  background: var(--clr6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book_stand{
+  width: 80%;
+  height: 300px;
+  border-bottom:solid 20px black ;
+  padding-left: 10px ;
+  padding-right: 10px ;
+  margin-bottom: 60px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 5px;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.stylebookGeneric{
+  width: 50px; 
+  border: solid 1px black;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+/*Clases for style books*/
+.stylebook1{
+  height: 50%;
+ 
+}
+
+.stylebookCLR1{
+  background-color: var(--clr1);
+}
+
+.stylebook2{
+  height: 70%; 
+
+}
+
+.stylebookCLR2{
+  background-color: var(--clr2);
+}
+
+.stylebook3{
+  height: 100%; 
+}
+
+.stylebookCLR3{
+  background-color: var(--clr3);
+}
+
+.stylebook4{
+  height: 140%; 
+}
+
+.stylebookCLR4{ 
+  background-color: var(--clr4);
+}
+
+/*Clean Local Storage*/
+.clear_localStorage{
+  width: 80px;
+  height: 30px;
+  position: absolute;
+  top: 93%;
+  left: 93%;
+}
+
+.clear_localStorage button{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  font-size: 10px;
+  border-radius: 5px;
+  border: solid 1px black;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.clear_localStorage button:hover {
+  background-color: gray;
+}
+
+
+/*Class for hover efect*/
+
+.class_hover{
+  min-width: 200px;
+  display: none;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.class_hover p{
+  margin: 5px;
+  font-size: 11px;
+}
+
+.stylebookGeneric:hover  .class_hover{
+  position: relative;
+  top: 200px;
+  width: 200px;
+  height: 160px;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+}
+
+/*Draw Triangle in the corner*/
+.class_hover:after {
+  content: '';
+  background-color: white;
+  width: 0px;
+  height: 0px;
+  border-left: 8px solid var(--clr6);
+  border-right: 8px solid var(--clr6);
+  border-bottom: 8px solid white;
+  border-top:  8px solid var(--clr6);
+  position: absolute;
+  right: 92%;
+  bottom: 100%;
+}
+
+/*Class for LomoBook*/
+
+.class_lomoBook{
+  font-size: 13px;
+  position: absolute;
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.class_lomoBook_author{
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.personal_tag{
+  position: relative;
+  top: 30%;
+}
