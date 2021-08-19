@@ -1,58 +1,39 @@
-// Set prefixed data for the LivePreview
-localStorage.setItem(0+"Name", "Cien años de soledad");
-localStorage.setItem(0+"Author", "Gabriel Garcia Marquez");
-localStorage.setItem(0+"State", "10-10-2020");
+// Create object to store data for demostration
+if (!(localStorage.hasOwnProperty('booksLocalStorage'))){
+  let booksLocalStorage = {
+    "1Book": {["Name"]: 'Cien años de soledad', ["Author"]: 'Gabriel Garcia Marquez', ["Date"]: '10-10-2020'},
+    "2Book": {["Name"]: "1984", ["Author"]: " G.Orwell", ["Date"]: '10-10-2020' },
+    "3Book": {["Name"]: 'Y los hipopótamos se cocieron en sus tanques', ["Author"]: 'William S. Burroughs / Jack Kerouac', ["Date"]: '10-10-2020'}
+  };
+  localStorage.setItem('booksLocalStorage', JSON.stringify(booksLocalStorage))
+};
 
-localStorage.setItem(1+"Name", "El extranjero");
-localStorage.setItem(1+"Author", "Alberto Camita");
-localStorage.setItem(1+"State", "10-10-2020");
+//Calculate number of books
+let   objectParse = localStorage.getItem('booksLocalStorage');
+      objectParse = JSON.parse(objectParse);
+let   book_counter = Object.keys(objectParse).length; 
 
-localStorage.setItem(2+"Name", "Y los hipopótamos se cocieron en sus tanques");
-localStorage.setItem(2+"Author", "Jack Kerauck");
-localStorage.setItem(2+"State", "10-10-2020");
+// Check data in LocalStorage and generate DOM elements
+function chargePage() {
+  for (let i = 0; i < book_counter; i++) {
+    // Data of each book
+    let bookObject = Object.values(objectParse)[i],
+        libro = bookObject.Name,
+        author = bookObject.Author,
+        estado = bookObject.Date;
 
+    create_book(libro, author);
 
-
-
-let nameBook = document.querySelector("#book_name"),
-    authorBook = document.querySelector("#book_author"),
-    dateBook = document.querySelector('input[type="date"]');
-    book_counter = 0;
-    book_container = document.querySelector("#library_displayId");
-
-// Codigo que comprueba los datos del LocalStorage y crea libros cada que se recarga la pagina
-// Se calculan la cantidad de libros existentes en el local storage
-// Se divide por tres por ser ése el número de atríbutos, así cada libro tiene asignados sus tres parametros
-if (localStorage.length > 1){
-  book_counter = localStorage.length/3 ;
-  
-  for (var i = 0; i < book_counter; i++) {
-
-
-    // Variables where the data of each book is get with his own index
-    let libro = localStorage.getItem(i+'Name'),
-        author = localStorage.getItem(i+'Author'),
-        estado = localStorage.getItem(i+'State'),
-        biggerr_string = "";
-
-    // Se calcula el tamaño del string más grande para pasar como argumento
-    if (libro.length > author.length){
-      biggerr_string = libro.length;
-    } else {
-      biggerr_string = author.length;
-    }
-    create_book(biggerr_string);
-
-    // Set Id for each book created
+    // Set Id for each book in the DOM
     document.getElementById("library_displayId").lastElementChild.setAttribute("id", "bookid"+i);
 
-    // Create Div that will display de information on hover 
+    // Hover information
     let displayHover = document.createElement("div");
     displayHover.setAttribute("class", "class_hover");
-    displayHover.innerHTML = '<p>Book: </p>'+libro+'<br>'+'<p>Author: </p>'+author+'<br>'+'<p>Date Read: </p>'+estado;
+    displayHover.innerHTML = '<div class="class_hover_tittle">Book:</div><div>'+libro+'</div>'+'<div class="class_hover_tittle">Author: </div><div>'+author+'</div>'+'<div class="class_hover_tittle">Date Read: </div><div>'+estado+'</div>';
     document.getElementById("bookid"+i).appendChild(displayHover);
     
-    // Create Div that will display de information on 
+    // Book information
     let lomoBook = document.createElement("div");
     let lomoBook_author = document.createElement("div");
     lomoBook.setAttribute("class", "class_lomoBook");
@@ -65,45 +46,54 @@ if (localStorage.length > 1){
 }
 
 
-// Function called on add button save the data in LocalStorage 
+// Local Storage save data
 function F_add_book() {
   // Validate formulary
+  let nameBook = document.querySelector("#book_name"),
+      authorBook = document.querySelector("#book_author"),
+      dateBook = document.querySelector('input[type="date"]');
+
   if (nameBook.value != "" && authorBook.value != "" && dateBook.value != "") {
-   
-    // To Validate if there is less than 30 books
     if (localStorage.length < 31) {
 
-      // Save the tree items in LocalStorage with shared book_counter index
-      localStorage.setItem(book_counter+"Name", nameBook.value);
-      localStorage.setItem(book_counter+"Author", authorBook.value);
-      localStorage.setItem(book_counter+"State", dateBook.value);
+      let bookName = book_counter+1+"Book",
+          bookObject = {["Name"]: nameBook.value, ["Author"]: authorBook.value, ["Date"]: dateBook.value },
+          retrievedObject = localStorage.getItem('booksLocalStorage');
+          retrievedObject = JSON.parse(retrievedObject);
 
-      // Reload the page for add the new element to stand
+      retrievedObject[bookName] = bookObject;
+      localStorage.setItem('booksLocalStorage', JSON.stringify(retrievedObject));
+       
+      // Reload the page cause the DOM it's generated based in the state of the localStorage data
       document.location.reload();
 
     } else {
       alert("Library Max Capacity Is 30");
     }
-
   } else {
-    alert("Finish The Form Before Add");
+    alert("Finish The Form Before Add Your Lecture");
   }
 }
 
-
-// Function to get a random number in a range
-// Used to generate random patrons in the stand
+// Used to generate random colors patrons in the books
 function getRandomInt() {
     min = Math.ceil(1);
     max = Math.floor(4);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Function that generate individually books in the stand, add random color, and height depending on his string_length
-function create_book(bigger_string) {
+// Add individually books in the DOM
+function create_book(Libro, author) {
+  let btn = document.createElement("div"),
+      bigger_string = "",
+      book_container = document.querySelector("#library_displayId");
 
-  let btn = document.createElement("div");
-  let random_stylebook = getRandomInt();
+  // Define max heigth of the book
+  if (Libro.length > author.length){
+    bigger_string = Libro.length;
+  } else {
+    bigger_string = author.length;
+  }  
  
    // Chose Book Heigth
   if (bigger_string < 10){
@@ -116,42 +106,19 @@ function create_book(bigger_string) {
       btn.classList.add("stylebook4", "stylebookGeneric");
   }
 
-  // Chose Book random color
-  if (random_stylebook == 1){
-     btn.classList.add("stylebookCLR1");
-  } else if (random_stylebook == 2){
-      btn.classList.add("stylebookCLR2");
-  } else if (random_stylebook == 3){
-     btn.classList.add("stylebookCLR3");
-  } else if (random_stylebook == 4){
-      btn.classList.add("stylebookCLR4");
-  }
-
   // Se agrega el elemento
   book_container.appendChild(btn);
 }
 
 // Function to clear LocalStorage
 function clearStorage() {
-  if (confirm('Are you sure you want to delete your library data?. The LocalStorage will be deleted')) {
-    localStorage.clear();
+  if (confirm('Are you sure you want to delete your library data? The LocalStorage data will be deleted')) {
+    localStorage.removeItem("booksLocalStorage")
     document.location.reload();
   } else {
     return;
   }
 }
 
-
-// Avoid two box cheked at once
-// function checkbox(number_box) {
-// if (number_box == "box1"){
-//   if(check2.checked == true){ 
-//     check2.checked = false;
-//   }
-
-//   }else if (number_box == "box2"){
-//    if(check1.checked == true){ 
-//      check1.checked = false;
-//     } 
-//   }
-// }
+// Initial state 
+chargePage();
